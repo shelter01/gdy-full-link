@@ -1,0 +1,59 @@
+<template>
+  <foreignObject
+    :x="info.position.x"
+    :y="info.position.y"
+    width="120"
+    height="100"
+  >
+    <div class="box" :class="_statusClass(info.fluency)">
+      <div class="fluency">{{ info.name }}</div>
+      <div class="text">
+        {{ info.fluency >= 98 && info.fluency != 0 ? '流畅' : '卡顿' }}
+      </div>
+    </div>
+  </foreignObject>
+</template>
+<script>
+import rule from '../rule'
+export default {
+  mixins: [rule],
+  data() {
+    return {}
+  },
+  props: {
+    // key: {
+    //   default() {
+    //     return 0
+    //   }
+    // },
+    info: {
+      default() {
+        return []
+      }
+    }
+  },
+  computed: {}
+}
+</script>
+<style lang="less" scoped>
+.box {
+  text-align: center;
+  font-size: 12px;
+  font-weight: bold;
+  color: #fff;
+  .text {
+    padding-top: 5px;
+    color: #33c78d;
+  }
+  &.success {
+    .text {
+      color: #33c78d;
+    }
+  }
+  &.error {
+    .text {
+      color: red;
+    }
+  }
+}
+</style>

@@ -1,0 +1,142 @@
+{
+  "data": {
+    "type": "lcps",
+    "publish": [
+      {
+        "type": "lcps_in",
+        "name": "信道1",
+        "publishFluency": 0,
+        "publishToFluency": 0,
+        "publish": [
+          {
+            "type": "stream_input",
+            "name": "媒资"
+          }
+        ]
+      },
+      {
+        "type": "lcps_in",
+        "name": "信道2",
+        "publishFluency": 0,
+        "publishToFluency": 0,
+        "publish": [
+          {
+            "type": "stream_input",
+            "name": "拉流"
+          }
+        ]
+      },
+      {
+        "type": "lcps_in",
+        "name": "信道3",
+        "publishFluency": 0,
+        "publishToFluency": 0,
+        "publish": [
+          {
+            "type": "stream_input",
+            "name": "拉流"
+          }
+        ]
+      },
+      {
+        "type": "lcps_in",
+        "name": "信道4",
+        "publishFluency": 0,
+        "publishToFluency": 0,
+        "publish": [
+          {
+            "type": "stream_input",
+            "name": "拉流"
+          }
+        ]
+      },
+      {
+        "type": "lcps_in",
+        "name": "信道5",
+        "publishFluency": 0,
+        "publishToFluency": 0,
+        "publish": [
+          {
+            "type": "stream_input",
+            "name": "拉流"
+          }
+        ]
+      },
+      {
+        "type": "lcps_in",
+        "name": "信道6",
+        "publishFluency": 0,
+        "publishToFluency": 0,
+        "publish": [
+          {
+            "type": "stream_input",
+            "name": "拉流"
+          }
+        ]
+      },
+      {
+        "type": "lcps_in",
+        "name": "信道7",
+        "publishFluency": 0,
+        "publishToFluency": 0,
+        "publish": [
+          {
+            "type": "stream_input",
+            "name": "拉流"
+          }
+        ]
+      },
+      {
+        "type": "lcps_in",
+        "name": "信道8",
+        "publishFluency": 0,
+        "publishToFluency": 0,
+        "publish": [
+          {
+            "type": "stream_input",
+            "name": "拉流"
+          }
+        ]
+      }
+    ],
+    "publishTo": [
+      {
+        "appId": "lmfomm4ie",
+        "appStatus": 2,
+        "type": "lcps_out",
+        "name": "111",
+        "publishFluency": 0,
+        "publishToFluency": 0,
+        "publishTo": [
+          {
+            "type": "stream_output",
+            "name": "1000223-刘思佳专用测试",
+            "publishFluency": 0,
+            "publishToFluency": 0
+          },
+          {
+            "type": "lps_output",
+            "publishFluency": 0,
+            "publishToFluency": 0,
+            "publishTo": [
+              {
+                "type": "lps_output_out",
+                "name": "",
+                "publishFluency": 0,
+                "publishToFluency": 0,
+                "publishTo": [
+                  {
+                    "type": "stream_output",
+                    "name": "111",
+                    "publishFluency": 100,
+                    "publishToFluency": 0
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
