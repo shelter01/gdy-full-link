@@ -3,20 +3,20 @@
     <foreignObject :x="x" :y="y" width="120" height="25">
       <div class="title">{{ name }}</div>
     </foreignObject>
-    <template v-for="(item, index) in data">
+    <template v-for="(item, index) in fluencyData">
       <item :info="item" :key="index"></item>
     </template>
     <foreignObject :x="x - 90" :y="189" width="80" height="20">
-      <div class="city">杭州</div>
+      <div class="city">北京</div>
     </foreignObject>
     <foreignObject :x="x - 90" :y="293" width="80" height="20">
-      <div class="city">杭州</div>
+      <div class="city">北京</div>
     </foreignObject>
     <foreignObject :x="x - 90" :y="397" width="80" height="20">
       <div class="city">北京</div>
     </foreignObject>
     <foreignObject :x="x - 90" :y="501" width="80" height="20">
-      <div class="city">北京</div>
+      <div class="city">杭州</div>
     </foreignObject>
   </g>
 </template>
@@ -34,9 +34,28 @@ export default {
       default() {
         return []
       }
+    },
+    lineFluency: {
+      default() {
+        return []
+      }
     }
   },
-  computed: {}
+  computed: {
+    fluencyData() {
+      const res = []
+      for (let i = 0; i < this.lineFluency.length; i++) {
+        const data = {
+          name: this.data[i].name,
+          position: this.data[i].position,
+          src: this.data[i].src,
+          fluency: this.lineFluency[i].fluency
+        }
+        res.push(data)
+      }
+      return [...res, ...this.data.slice(res.length)]
+    }
+  }
 }
 </script>
 <style lang="less" scoped>

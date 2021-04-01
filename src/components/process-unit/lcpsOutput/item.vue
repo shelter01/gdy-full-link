@@ -8,14 +8,14 @@
     <div class="box" :title="info.name">
       <div class="status">
         <img :src="src" />
-        <div class="name">
-          {{ info.name }}
-        </div>
         <div class="wrap">
-          <div class="crop"></div>
+          <div class="crop">111</div>
         </div>
         <div class="wrap2">
           <div class="crop"></div>
+        </div>
+        <div class="name">
+          {{ info.name }}
         </div>
       </div>
     </div>
@@ -57,6 +57,9 @@ export default {
     img {
       width: 96px;
       height: 214px;
+      position: absolute;
+      left: 18px;
+      z-index: 10;
     }
     .wrap {
       position: absolute;
@@ -66,7 +69,7 @@ export default {
       width: 206px;
       left: 0;
       top: 184px;
-      z-index: -1;
+      z-index: 0;
       .crop {
         position: relative;
         width: 94px;
@@ -87,7 +90,7 @@ export default {
       width: 206px;
       left: 0;
       top: 194px;
-      z-index: -2;
+      z-index: 1;
       .crop {
         position: relative;
         width: 94px;
@@ -102,17 +105,16 @@ export default {
     }
     .name {
       position: absolute;
-      bottom: 44px;
-      left: 44px;
-      color: #fff;
-      height: 20px;
-      line-height: 20px;
+      transform: translate3d(0, 0, 0);
+      display: inline-block;
+      // transition: transform 300ms ease-out;
+      width: 206px;
+      left: -36px;
+      top: 143px;
       font-size: 20px;
       font-weight: bold;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      overflow: hidden;
-      z-index: 2;
+      color: #fff;
+      z-index: 12;
     }
   }
 }

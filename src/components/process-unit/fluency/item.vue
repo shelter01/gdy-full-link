@@ -8,7 +8,8 @@
     <div class="box" :class="_statusClass(info.fluency)">
       <div class="fluency">{{ info.name }}</div>
       <div class="text">
-        {{ info.fluency >= 98 && info.fluency != 0 ? '流畅' : '卡顿' }}
+        <!-- {{ info.fluency > 98 || info.fluency == 0 ? '流畅' : '卡顿' }} -->
+        {{ fluency }}
       </div>
     </div>
   </foreignObject>
@@ -32,7 +33,17 @@ export default {
       }
     }
   },
-  computed: {}
+  computed: {
+    fluency() {
+      if (this.info.fluency >= 98) {
+        return '流畅'
+      } else if (this.info.fluency > 0) {
+        return '卡顿'
+      } else {
+        return '未输入'
+      }
+    }
+  }
 }
 </script>
 <style lang="less" scoped>
@@ -53,6 +64,11 @@ export default {
   &.error {
     .text {
       color: red;
+    }
+  }
+  &.none {
+    .text {
+      color: rgb(182, 180, 180);
     }
   }
 }

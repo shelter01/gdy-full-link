@@ -1,11 +1,11 @@
 <template>
-  <div class="box">
+  <div class="box" id="screen-full">
     <!-- 全屏 -->
     <div class="screen-full" @click="screenFull">
       <img src="../assets/icons/screenfull.svg" />
     </div>
     <!-- svg整屏定位 -->
-    <svg version="1.1" viewBox="0 0 1700 950" id="screen-full">
+    <svg version="1.1" viewBox="0 0 1700 950">
       <g class="link-line-box">
         <link-line></link-line>
       </g>
@@ -15,6 +15,7 @@
           :y="60"
           :data="inputSource"
           name="信号输入源"
+          :lineFluency="lineFluency"
         ></stream-input>
       </g>
       <g class="coding-node-box">
@@ -40,16 +41,24 @@
         ></stream-output>
       </g>
       <g class="fluency">
-        <fluency :x="340" :y="60" name="信号流畅度"></fluency>
+        <fluency
+          :x="340"
+          :y="60"
+          name="信号流畅度"
+          :lineFluency="lineFluency"
+        ></fluency>
       </g>
     </svg>
   </div>
 </template>
 
 <script>
-import resDemo from './data.json'
+// import resDemo from './data.json'
 import CONFIG from './process-unit/config'
 import screenfull from 'screenfull'
+import axios from 'axios'
+import Vue from 'vue'
+Vue.prototype.$axios = axios
 import {
   streamInput,
   lcps,
@@ -90,7 +99,10 @@ export default {
   data() {
     return {
       streamInputData: [],
-      aaa: [1]
+      url: 'http://112.124.197.76:8888/v2/LPS.GetAllStatusForAppStream',
+      lcpsInData: [],
+      lineFluency: []
+      // index: 0
     }
   },
   methods: {
@@ -100,14 +112,16 @@ export default {
         screenfull.toggle(el)
       }
     },
-    getlinkList() {
+    async getlinkList() {
+      const { data: res } = await this.$axios.get(this.url)
       this.resetData()
       this.$nextTick(() => {
-        this._makePublish(resDemo.data.publish)
+        this._makePublish(res.data.publish)
       })
     },
     resetData() {
       this.streamInputData = []
+      this.lineFluency = []
     },
     _makePublish(data) {
       if (!data || !data.length) {
@@ -119,16 +133,40 @@ export default {
           const dataObj = {
             type: inputData.type,
             name: inputData.name || '输入源',
-            fluency: 100,
-            fluencyTo: 100
+            fluency: item.publishFluency,
+            fluencyTo: item.publishToFluency
           }
           this.streamInputData.push(dataObj)
         }
+        // if (item.type === 'lcps_in') {
+        //   const dataObj = {
+        //     type: item.type,
+        //     name: item.name || `信道${index + 1}`,
+        //     fluency: item.publishFluency,
+        //     fluencyTo: item.publishToFluency
+        //   }
+        //   this.lcpsInData.push(dataObj)
+        // }
       })
+      this.makefluency(this.streamInputData)
+    },
+    makefluency(stream) {
+      for (let i = 0; i < stream.length; i++) {
+        const data = {
+          fluency: Math.max(stream[i].fluencyTo, stream[i].fluency)
+          // fluency: 98
+        }
+        this.lineFluency.push(data)
+      }
     }
   },
-  mounted() {
+  created() {
     this.getlinkList()
+  },
+  mounted() {
+    setInterval(() => {
+      this.getlinkList()
+    }, 2000)
   }
 }
 </script>
@@ -136,11 +174,15 @@ export default {
 <style scoped lang="less">
 .box {
   box-sizing: border-box;
-  position: relative;
   width: 100vw;
   height: 100vh;
   font-family: Helvetica;
   background-color: #1b1c20;
+  background-image: url('../assets/icons/background.png');
+  background-size: 100% 100%;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
   .screen-full {
     position: absolute;
     top: 1%;
@@ -155,11 +197,9 @@ export default {
     }
   }
   svg {
-    position: absolute;
-    width: 100%;
-    height: 100%;
     display: block;
-    transform: scale(0.9);
+    width: 100%;
+    transform: scale(0.8);
   }
 }
 </style>

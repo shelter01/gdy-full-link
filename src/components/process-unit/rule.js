@@ -5,6 +5,8 @@ const rule = {
         return { success: true }
       } else if (fluency > 0) {
         return { error: true }
+      } else {
+        return { none: true }
       }
     }
   }

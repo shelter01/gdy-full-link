@@ -5,7 +5,7 @@
     width="100"
     height="100"
   >
-    <div class="box" :title="info.name" :class="_statusClass(info.fluency)">
+    <div class="box" :title="info.name">
       <div class="status">
         <img :src="src" />
         <div class="wrap">
@@ -54,8 +54,11 @@ export default {
     width: 100%;
     height: 75px;
     img {
+      position: absolute;
+      left: 25px;
       width: 52px;
       height: 70px;
+      z-index: 10;
     }
     .wrap {
       position: absolute;
@@ -65,7 +68,7 @@ export default {
       width: 100px;
       left: 18px;
       top: 42px;
-      z-index: -1;
+      z-index: 0;
       .crop {
         position: relative;
         width: 48px;
@@ -85,7 +88,7 @@ export default {
       width: 100px;
       left: 18px;
       top: 48px;
-      z-index: -2;
+      z-index: 2;
       .crop {
         position: relative;
         width: 48px;
